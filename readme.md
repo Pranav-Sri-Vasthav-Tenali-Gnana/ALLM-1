@@ -32,3 +32,34 @@ This repo is intentionally modular so future extensions (RLHF, RLAIF, DPO) can p
 * `paper/` → paper draft + experiment tables (later)
 
 ---
+
+## Repo structure (lock this early)
+
+```
+allm-1/
+  core/
+    data/                 # dataset adapters + preprocessing
+    models/               # model wrappers / configs
+    train/                # training entrypoints
+    eval/                 # evaluation + metrics
+    tune/                 # hyperparameter search
+    quant/                # quantization pipelines
+    bench/                # latency/throughput/size benchmarks
+    utils/                # logging, seeding, I/O helpers
+  service/
+    app/                  # FastAPI app
+    registry/             # model registry interface
+  ui/                     # later (optional)
+  paper/
+    draft.md
+    tables/
+    figures/
+  configs/
+    classification/
+    summarization/
+  scripts/
+  artifacts/              # gitignored (local) or managed via DVC later
+  tests/
+  README.md
+  Makefile (optional)
+```
