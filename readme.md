@@ -33,7 +33,7 @@ This repo is intentionally modular so future extensions (RLHF, RLAIF, DPO) can p
 
 ---
 
-## Repo structure (lock this early)
+## Repo structure
 
 ```
 allm-1/
