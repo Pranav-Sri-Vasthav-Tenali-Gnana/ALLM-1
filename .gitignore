@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+artifacts/
+*.onnx
+*.pt
+*.safetensors
+dist/
+.claude/
+personal/
+paper/

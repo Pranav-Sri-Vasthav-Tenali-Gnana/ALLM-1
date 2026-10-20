@@ -1,0 +1,47 @@
+# CNN/DailyMail news summarization with T5-small (60M params).
+name: sum-t5small-cnndm
+task: summarization
+seed: 42
+
+model:
+  name_or_path: t5-small
+  max_length: 512
+  max_target_length: 64
+  prefix: "summarize: "
+
+data:
+  dataset: abisee/cnn_dailymail
+  subset: "3.0.0"
+  text_field: article
+  target_field: highlights
+  train_split: train
+  eval_split: validation
+  max_train_samples: 20000
+  max_eval_samples: 500
+
+train:
+  epochs: 1
+  batch_size: 8
+  eval_batch_size: 16
+  learning_rate: 3.0e-4        # T5 likes higher LRs than BERT-style models
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+
+tune:
+  n_trials: 6
+  max_train_samples: 3000
+  max_eval_samples: 300
+  search_space:
+    train.learning_rate: {type: float, low: 1.0e-4, high: 1.0e-3, log: true}
+    train.batch_size:    {type: categorical, choices: [4, 8]}
+
+quant:
+  enabled: true
+
+bench:
+  batch_sizes: [1, 4]
+  warmup: 2
+  iters: 10
+  num_threads: 4
+  max_new_tokens: 64
+  num_beams: 1

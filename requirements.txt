@@ -1,0 +1,21 @@
+# Install torch CPU wheels first for a smaller download:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.4
+transformers>=5.0
+datasets>=3.0
+accelerate>=1.0
+sentencepiece          # T5 tokenizer
+scikit-learn
+rouge_score
+optuna>=4.0
+onnx
+onnxruntime
+fastapi>=0.110
+uvicorn[standard]
+pydantic>=2
+pyyaml
+numpy
+matplotlib             # paper figure (optional)
+# dev
+pytest
+httpx                  # FastAPI TestClient

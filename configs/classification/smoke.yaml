@@ -1,0 +1,28 @@
+# Tiny model + local fixtures: runs the whole pipeline in ~1 minute on CPU.
+name: smoke-cls
+task: classification
+model:
+  name_or_path: google/bert_uncased_L-2_H-128_A-2
+  max_length: 64
+data:
+  dataset: local
+  train_file: tests/fixtures/cls_train.jsonl
+  eval_file: tests/fixtures/cls_eval.jsonl
+  text_field: text
+  target_field: label
+train:
+  epochs: 3
+  batch_size: 8
+  learning_rate: 1.0e-4
+  logging_steps: 5
+tune:
+  n_trials: 2
+  search_space:
+    train.learning_rate: {type: float, low: 5.0e-5, high: 3.0e-4, log: true}
+quant:
+  onnx: true
+bench:
+  batch_sizes: [1, 8]
+  warmup: 1
+  iters: 5
+  num_threads: 2

@@ -1,0 +1,25 @@
+# Tiny model + local fixtures: exercises the summarization path end to end.
+name: smoke-sum
+task: summarization
+model:
+  name_or_path: google/t5-efficient-tiny
+  max_length: 128
+  max_target_length: 32
+  prefix: "summarize: "
+data:
+  dataset: local
+  train_file: tests/fixtures/sum_train.jsonl
+  eval_file: tests/fixtures/sum_eval.jsonl
+  text_field: document
+  target_field: summary
+train:
+  epochs: 2
+  batch_size: 4
+  learning_rate: 1.0e-3
+  logging_steps: 5
+bench:
+  batch_sizes: [1, 4]
+  warmup: 1
+  iters: 3
+  num_threads: 2
+  max_new_tokens: 24

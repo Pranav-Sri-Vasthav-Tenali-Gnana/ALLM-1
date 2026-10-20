@@ -1,0 +1,45 @@
+# AG News topic classification (4 classes) with DistilBERT.
+name: cls-distilbert-agnews
+task: classification
+seed: 42
+
+model:
+  name_or_path: distilbert-base-uncased
+  max_length: 128
+
+data:
+  dataset: fancyzhx/ag_news     # hub ids now need a namespace
+  text_field: text
+  target_field: label
+  train_split: train
+  eval_split: test
+  max_train_samples: 20000     # full set is 120k; 20k gets ~93% in ~1 epoch
+  max_eval_samples: 2000
+
+train:
+  epochs: 2
+  batch_size: 32
+  eval_batch_size: 64
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+
+tune:
+  n_trials: 8
+  max_train_samples: 4000
+  max_eval_samples: 1000
+  search_space:
+    train.learning_rate: {type: float, low: 1.0e-5, high: 1.0e-4, log: true}
+    train.batch_size:    {type: categorical, choices: [16, 32]}
+    train.weight_decay:  {type: float, low: 0.0, high: 0.1}
+    train.warmup_ratio:  {type: categorical, choices: [0.0, 0.06, 0.1]}
+
+quant:
+  enabled: true
+  onnx: true
+
+bench:
+  batch_sizes: [1, 8, 32]
+  warmup: 5
+  iters: 30
+  num_threads: 4

@@ -1,0 +1,12 @@
+# Inference server only (no training deps). torch is installed separately in
+# the Dockerfile from the CPU wheel index. Versions match the tested venv.
+transformers==5.20.1
+tokenizers==0.23.3
+safetensors==0.8.0
+sentencepiece==0.2.2
+fastapi==0.143.3
+uvicorn==0.54.0
+pydantic==2.14.1
+PyYAML==6.0.3
+numpy==2.5.4
+onnxruntime==1.31.0
