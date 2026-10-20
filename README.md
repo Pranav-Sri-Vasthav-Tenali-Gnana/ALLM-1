@@ -3,8 +3,7 @@
 Small transformer models for **news classification** and **summarization**, fine-tuned,
 quantized to 8-bit, benchmarked FP32 vs INT8 on CPU, and served from a versioned model registry.
 
-**[Live demo](https://huggingface.co/spaces/Pranavsri/allm-1)** ·
-[API docs](https://pranavsri-allm-1.hf.space/docs)
+**[Live demo](https://pranav-sri-vasthav-tenali-gnana--allm-1-web.us-east.modal.run/)** ·
 
 ![ALLM-1 demo page](docs/demo.jpg)
 
